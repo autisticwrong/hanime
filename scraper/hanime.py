@@ -11,18 +11,7 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 BASE_LINK = "https://hanime.tv/"
 
 config = {
-  "target_path": './images/', 
-  "tags": 
-    {
-    "SFW": {"enabled": False, "divIndex": 1},
-    "NSFW": {"enabled": True, "divIndex": 2},
-    "Furry": {"enabled": False, "divIndex": 3},
-    "Futa": {"enabled": False, "divIndex": 4},
-    "Yaoi": {"enabled": False, "divIndex": 5},
-    "Yuri": {"enabled": True, "divIndex": 6},
-    "Trap": {"enabled": False, "divIndex": 7},
-    "3D": {"enabled": False, "divIndex": 8},
-  }
+  "target_path": './images/'
 }
 
 class Hanime():
