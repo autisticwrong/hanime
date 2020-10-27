@@ -28,7 +28,7 @@ class Hanime():
     os.chmod(self.config["target_path"], 0o777)
     
     pages = self.pages()
-    self.current_page = 1
+    self.current_page = 1 
     
     self.driver.find_element_by_xpath("""//*[@id="app"]/div[4]/main/div/div/div/div[3]/div[1]/div""").click()
     time.sleep(1)
