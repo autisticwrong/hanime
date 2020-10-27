@@ -31,14 +31,13 @@ class Hanime():
     os.chmod(self.config["target_path"], 0o777)
     pages = self.pages()
     
-    for i in range(pages):
-      if i < pages:
-        self.scrape()
-        
-      else:
-        nextPage = self.driver.find_element_by_xpath("""//*[@id="app"]/div[4]/main/div/div/div/div[4]/button[3]/div""")
-        nextPage.click()
-        
+    self.current_page = 1
+    
+    while self.current_page <= pages:
+      self.scrape()
+      nextPage = self.driver.find_element_by_xpath("""//*[@id="app"]/div[4]/main/div/div/div/div[4]/button[3]/div""")
+      nextPage.click()
+      self.current_page += 1
 
     print(len(self.links))
     
@@ -46,6 +45,26 @@ class Hanime():
     self.pages = int(input("How many pages do you want to scrape? "))
     return self.pages
     
+  def scrape(self):
+    for i in range(1, 100):
+      try:
+        content = self.driver.find_element_by_xpath("""//*[@id="app"]/div[4]/main/div/div/div/div[5]/a[{0}]""".format(i)).get_attribute("href")
+        print(content)
+        self.links.append(content)
+    
+      except:
+        pass
+
+@client.event
+async def on_ready():
+  print("Online!")
+
+@client.command()
+async def poon(ctx):
+  a = Hanime(config)
+  a.run()
+  for i in a.links:
+    await ctx.send(i)    
   def scrape(self):
     for i in range(1, 100):
       try:
