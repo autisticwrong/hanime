@@ -51,7 +51,7 @@ class Hanime():
     for i in range(1, 100):
       try:
         content = self.driver.find_element_by_xpath("""//*[@id="app"]/div[4]/main/div/div/div/div[5]/a[{0}]""".format(i)).get_attribute("href")
-        #print(content)
+        print(content)
         self.links.append(content)
     
       except:
