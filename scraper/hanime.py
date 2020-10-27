@@ -41,7 +41,7 @@ class Hanime():
 
     print(len(self.links))
     
-    self.download(self.links)
+    #self.download(self.links)
 
   def pages(self):
     self.pages = int(input("How many pages do you want to scrape? "))
@@ -51,16 +51,17 @@ class Hanime():
     for i in range(1, 100):
       try:
         content = self.driver.find_element_by_xpath("""//*[@id="app"]/div[4]/main/div/div/div/div[5]/a[{0}]""".format(i)).get_attribute("href")
-        print(content)
+        #print(content)
         self.links.append(content)
     
       except:
         pass
       
-  def download(self, image_list):
-    a = 1
+  def download(self):
+    image_list = self.links
+    count = 1
     for i in image_list:
       img_data = requests.get(i).content
-      with open(f'./images/image{a}.jpg', 'wb') as handler:
+      with open(f'./images/image{count}.jpg', 'wb') as handler:
         handler.write(img_data)
-      a += 1
+      count += 1
