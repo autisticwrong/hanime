@@ -32,7 +32,7 @@ class Hanime():
 
     print(len(self.links))
     
-    #self.download(self.links)
+    #self.download(self.links) 
 
   def pages(self):
     self.pages = int(input("How many pages do you want to scrape? "))
