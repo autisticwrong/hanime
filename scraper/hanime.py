@@ -3,22 +3,13 @@ import time
 import requests
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.chrome.options import Options
-
-chrome_options = Options()
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
 
 BASE_LINK = "https://hanime.tv/"
-
-config = {
-  "target_path": './images/'
-}
 
 class Hanime():
   def __init__(self, config):
     self.config = config
-    self.driver = webdriver.Chrome(options=chrome_options)
+    self.driver = webdriver.Chrome(executable_path=self.config['driver_path'])
     self.driver.get(BASE_LINK + "browse/images")
     self.links = []
   
