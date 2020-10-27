@@ -25,22 +25,34 @@ class Hanime():
     self.driver.get(BASE_LINK + "browse/images")
     self.links = []
   
-  """def run(self):
+  def run(self):
     if not os.path.exists(self.config["target_path"]):
       os.mkdir(self.config["target_path"])
     os.chmod(self.config["target_path"], 0o777)
-    self.scrape()"""
+    pages = self.pages()
     
-  #def pages(self):
-    #self.pages = int(input("How many pages do you want to scrape? "))
-    #return self.pages
+    for i in range(pages):
+      if i < pages:
+        self.scrape()
+        
+      else:
+        nextPage = self.driver.find_element_by_xpath("""//*[@id="app"]/div[4]/main/div/div/div/div[4]/button[3]/div""")
+        nextPage.click()
+        
+
+    print(len(self.links))
+    
+  def pages(self):
+    self.pages = int(input("How many pages do you want to scrape? "))
+    return self.pages
     
   def scrape(self):
     for i in range(1, 100):
       try:
         content = self.driver.find_element_by_xpath("""//*[@id="app"]/div[4]/main/div/div/div/div[5]/a[{0}]""".format(i)).get_attribute("href")
-        
+        print(content)
         self.links.append(content)
+    
       except:
         pass
 
@@ -51,9 +63,8 @@ async def on_ready():
 @client.command()
 async def poon(ctx):
   a = Hanime(config)
-  a.scrape()
+  a.run()
   for i in a.links:
     await ctx.send(i)
 
-    
 client.run("token here")
