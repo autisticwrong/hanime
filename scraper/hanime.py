@@ -1,5 +1,6 @@
 import os
 import time
+import requests
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
@@ -29,7 +30,7 @@ class Hanime():
     pages = self.pages()
     self.current_page = 1
     
-    self.driver.find_element_by_xpath("""//*[@id="app"]/div[4]/main/div/div/div/div[3]/div[1]/div""").click() #FUCK SFW
+    self.driver.find_element_by_xpath("""//*[@id="app"]/div[4]/main/div/div/div/div[3]/div[1]/div""").click()
     time.sleep(1)
     
     while self.current_page <= pages:
@@ -40,6 +41,8 @@ class Hanime():
 
     print(len(self.links))
     
+    self.download(self.links)
+
   def pages(self):
     self.pages = int(input("How many pages do you want to scrape? "))
     return self.pages
@@ -47,9 +50,17 @@ class Hanime():
   def scrape(self):
     for i in range(1, 100):
       try:
-        content = self.driver.find_element_by_xpath("""//*[@id="app"]/div[4]/main/div/div/div/div[5]/a[1]""").get_attribute("href")
+        content = self.driver.find_element_by_xpath("""//*[@id="app"]/div[4]/main/div/div/div/div[5]/a[{0}]""".format(i)).get_attribute("href")
         print(content)
         self.links.append(content)
     
       except:
         pass
+      
+  def download(self, image_list):
+    a = 1
+    for i in image_list:
+      img_data = requests.get(i).content
+      with open(f'./images/image{a}.jpg', 'wb') as handler:
+        handler.write(img_data)
+      a += 1
