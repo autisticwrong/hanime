@@ -5,6 +5,11 @@ from scraper.hanime import Hanime
 client = commands.Bot(command_prefix="s.")
 client.remove_command("help")
 
+config = {
+  "target_path": './images/',
+  "driver_path": "chromedriver.exe"
+}
+
 @client.event
 async def on_ready():
   print("Online!")
