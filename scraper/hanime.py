@@ -3,13 +3,19 @@ import time
 import requests
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.chrome.options import Options
 
 BASE_LINK = "https://hanime.tv/"
+
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--window-size=1920,1080")
 
 class Hanime():
   def __init__(self, config):
     self.config = config
-    self.driver = webdriver.Chrome(executable_path=self.config['driver_path'])
+    self.driver = webdriver.Chrome(executable_path=self.config['driver_path'], options=chrome_options)
     self.driver.get(BASE_LINK + "browse/images")
     self.links = []
   
