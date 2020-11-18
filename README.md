@@ -1,5 +1,5 @@
 # Hanime
-This is a scraper that uses selenium to rethrive images from hanime.tv
+This is a scraper that uses selenium to retrieve images from hanime.tv
 
 # General Usage:
 * Download the images into a folder
